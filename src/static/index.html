@@ -5,19 +5,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Atividades Extracurriculares - Mergington High School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg" />
 </head>
 
 <body>
-  <div class="announcement-banner">
-    📢 As inscrições para atividades estão abertas até o final do mês. Não perca sua vaga!
+  <div id="announcement-banner" class="announcement-banner hidden" aria-live="polite">
+    <div class="announcement-banner-header">
+      <span class="announcement-icon" aria-hidden="true">📢</span>
+      <span>Anúncios da Escola</span>
+    </div>
+    <ul id="announcement-items" class="announcement-items"></ul>
   </div>
   <header>
     <h1>Mergington High School</h1>
     <h2>Atividades Extracurriculares</h2>
     <div id="user-controls">
-      <div id="user-status">
+      <div id="header-actions">
+        <button id="manage-announcements-button" class="icon-button hidden" aria-label="Gerenciar anúncios">
+          <span aria-hidden="true">🛎️</span>
+          <span>Anúncios</span>
+        </button>
+        <div id="user-status">
         <button id="login-button" class="icon-button">
           <span class="user-icon">👤</span>
           <span>Entrar</span>
@@ -25,6 +37,7 @@
         <div id="user-info" class="hidden">
           <span id="display-name"></span>
           <button id="logout-button">Sair</button>
+        </div>
         </div>
       </div>
     </div>
@@ -132,6 +145,40 @@
         <button type="submit">Entrar</button>
       </form>
       <div id="login-message" class="hidden message"></div>
+    </div>
+  </div>
+
+  <!-- Announcements Management Modal -->
+  <div id="announcements-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="announcements-modal-title">
+    <div class="modal-content announcements-modal-content">
+      <span class="close-announcements-modal" aria-label="Fechar">&times;</span>
+      <h3 id="announcements-modal-title">Gerenciar Anúncios</h3>
+      <p class="modal-subtitle">Crie, atualize ou exclua anúncios visíveis para toda a escola.</p>
+
+      <form id="announcement-form" class="announcement-form">
+        <input type="hidden" id="announcement-id" />
+        <div class="form-group">
+          <label for="announcement-message">Mensagem do anúncio:</label>
+          <textarea id="announcement-message" rows="3" required maxlength="500" placeholder="Ex.: Feira de ciências aberta para inscrições até sexta-feira."></textarea>
+        </div>
+        <div class="announcement-date-grid">
+          <div class="form-group">
+            <label for="announcement-starts-at">Data de início (opcional):</label>
+            <input type="date" id="announcement-starts-at" />
+          </div>
+          <div class="form-group">
+            <label for="announcement-expires-at">Data de expiração:</label>
+            <input type="date" id="announcement-expires-at" required />
+          </div>
+        </div>
+        <div class="announcement-form-actions">
+          <button type="submit" id="save-announcement-button">Salvar anúncio</button>
+          <button type="button" id="cancel-announcement-edit" class="secondary-button hidden">Cancelar edição</button>
+        </div>
+      </form>
+
+      <div id="announcement-modal-message" class="hidden message"></div>
+      <div id="announcements-list" class="announcements-list" aria-live="polite"></div>
     </div>
   </div>
 
